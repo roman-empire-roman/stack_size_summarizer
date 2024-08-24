@@ -13,10 +13,17 @@ b) terminate all processes representing other running machines with their own op
 The conditions under which this program was developed and tested:
 
 Docker 27.1.2
+
 Container OS: Ubuntu 22.04.4 LTS
+
 C++ standard: C++20
+
 Compiler: Clang 18.1.8
+
 CMake 3.30.2
+
 GNU Make 4.3
+
 boost 1.86.0
+
 procps 2:3.3.17-6ubuntu2.1
