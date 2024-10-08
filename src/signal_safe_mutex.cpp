@@ -16,7 +16,7 @@ namespace {
 
 SignalSafeMutex::SignalSafeMutex() {
     auto initResult = sem_init(
-        &m_semaphore, SharedType::BETWEEN_THREADS, g_nMaxThreads
+        &m_semaphore, static_cast<int>(SharedType::BETWEEN_THREADS), g_nMaxThreads
     );
     if (-1 == initResult) {
         if (0 != errno) {
