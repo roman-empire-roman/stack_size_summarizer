@@ -27,6 +27,7 @@ private:
 private:
     std::ifstream m_fileStream;
     std::string m_fileName;
+    int m_streamOpenMode = -1;
 };
 
 #endif // FILE_STREAM_WRAPPER_H

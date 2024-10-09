@@ -1,5 +1,6 @@
 #include "signal_handler_observer.h"
 
+#include <chrono>
 #include <csignal>
 #include <iostream>
 #include <mutex>

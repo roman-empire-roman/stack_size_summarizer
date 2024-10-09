@@ -15,4 +15,4 @@ set_property(
     TARGET lib_proc_ps PROPERTY IMPORTED_LOCATION
     "/usr/lib/x86_64-linux-gnu/libprocps.so"
 )
-target_link_libraries(stack_size_summarizer lib_proc_ps)
+target_link_libraries(stack_size_summarizer lib_proc_ps stdc++fs)

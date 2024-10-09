@@ -1,7 +1,6 @@
 #include "proc_filesystem_reader.h"
 
 #include <algorithm>
-#include <cerrno>
 #include <cstring>
 #include <iostream>
 #include <sstream>

@@ -2,6 +2,7 @@
 
 #include <cerrno>
 #include <cstring>
+#include <experimental/filesystem>
 #include <iostream>
 
 bool CommonFunctions::convertStringToULong(const std::string& input, unsigned long& output) {
@@ -31,24 +32,79 @@ bool CommonFunctions::convertStringToULong(const std::string& input, unsigned lo
 	return true;
 }
 
-void CommonFunctions::printError(const std::string& streamName) {
-	if (streamName.empty() || (0 == errno)) {
+void CommonFunctions::printFileError(const std::string& fileName) {
+	if (fileName.empty() || (0 == errno)) {
 		return;
 	}
 
 	auto errorDescriptionPtr = std::strerror(errno);
 	if (nullptr == errorDescriptionPtr) {
+		std::cerr << "{CommonFunctions::printFileError}; "
+			"error '" << errno << "' occurred during operations with "
+			"file '" << fileName << "'" << std::endl;
 		return;
 	}
 
 	auto descriptionLength = std::strlen(errorDescriptionPtr);
 	std::string errorDescription(errorDescriptionPtr, descriptionLength);
 	if (errorDescription.empty()) {
+		std::cerr << "{CommonFunctions::printFileError}; "
+			"error '" << errno << "' occurred during operations with "
+			"file '" << fileName << "'" << std::endl;
 		return;
 	}
 
-	std::cerr << "{CommonFunctions::printError}; "
+	std::cerr << "{CommonFunctions::printFileError}; "
 		"error '" << errno << "' occurred during operations with "
-		"stream '" << streamName << "'; "
+		"file '" << fileName << "'; "
 		"error description: '" << errorDescription << "'" << std::endl;
+}
+
+void CommonFunctions::printSemaphoreError() {
+	if (0 == errno) {
+		return;
+	}
+
+	auto errorDescriptionPtr = std::strerror(errno);
+	if (nullptr == errorDescriptionPtr) {
+		std::cerr << "{CommonFunctions::printSemaphoreError}; "
+			"error '" << errno << "' occurred during operations with semaphore" << std::endl;
+		return;
+	}
+
+	auto descriptionLength = std::strlen(errorDescriptionPtr);
+	std::string errorDescription(errorDescriptionPtr, descriptionLength);
+	if (errorDescription.empty()) {
+		std::cerr << "{CommonFunctions::printSemaphoreError}; "
+			"error '" << errno << "' occurred during operations with semaphore" << std::endl;
+		return;
+	}
+
+	std::cerr << "{CommonFunctions::printSemaphoreError}; "
+		"error '" << errno << "' occurred during operations with semaphore; "
+		"error description: '" << errorDescription << "'" << std::endl;
+}
+
+bool CommonFunctions::fileExists(const std::string& fileName) {
+    if (fileName.empty()) {
+        std::cerr << "{CommonFunctions::fileExists}; file name is empty" << std::endl;
+        return false;
+    }
+    if (!std::experimental::filesystem::exists(fileName)) {
+        std::cerr << "{CommonFunctions::fileExists}; file '" << fileName << "' does NOT exist" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool CommonFunctions::isRegularFile(const std::string& fileName) {
+    if (fileName.empty()) {
+        std::cerr << "{CommonFunctions::isRegularFile}; file name is empty" << std::endl;
+        return false;
+    }
+    if (!std::experimental::filesystem::is_regular_file(fileName)) {
+        std::cerr << "{CommonFunctions::isRegularFile}; file '" << fileName << "' is NOT a regular file" << std::endl;
+        return false;
+    }
+    return true;
 }

@@ -5,7 +5,10 @@
 
 namespace CommonFunctions {
     bool convertStringToULong(const std::string& input, unsigned long& output);
-    void printError(const std::string& streamName);
+    void printFileError(const std::string& fileName);
+    void printSemaphoreError();
+    bool fileExists(const std::string& fileName);
+    bool isRegularFile(const std::string& fileName);
 }
 
 #endif // COMMON_FUNCTIONS_H

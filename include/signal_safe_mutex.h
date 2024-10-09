@@ -16,6 +16,7 @@ public:
     void lock();
     void unlock();
 
+private:
     bool isValid() const { return m_isValid; }
 
 private:
